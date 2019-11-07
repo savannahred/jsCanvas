@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+		display: block;
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+	<canvas id = "myCanvas" width = "500" height = "500"></canvas>
+	<script>
+		var canvas = document.querySelector("#myCanvas");
+		var ctx = canvas.getContext("2d");
+		var color = "red";
+		ctx.fillStyle = color;
+		ctx.canvas.width  = window.innerWidth * .8;
+  		ctx.canvas.height = window.innerHeight * .8;
+		var canDraw = true;
+
+		function draw(posx,posy){
+			ctx.beginPath();
+			ctx.fillStyle = color;
+			console.log("DRAWING!");
+			ctx.arc(posx, posy, 10, 0 , 2 * Math.PI);
+			ctx.fill();
+		}
+
+		myCanvas.addEventListener("mousemove", function (e){
+			if (canDraw == true){
+				draw(e.x, e.y);
+				console.log(e.x);
+				console.log(e.y);
+				// here you can change to make the mouse exact
+			}
+	
+		})
+		
+		window.addEventListener("keydown", function (e){
+			console.log(e);
+			console.log(this);
+			var keyCode = event.keyCode;
+			if (keyCode == 71){
+				color = "green";
+			}
+			else if (keyCode == 66){
+				color = "blue";
+			}
+			else if(keyCode == 89){
+				color = "yellow";
+			}
+			else if (keyCode == 82){
+				color = "red";
+			}
+			else if (keyCode == 32){
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+			}
+			else if (keyCode == 38){
+				canDraw = false;
+			}
+			else if (keyCode == 40){
+				canDraw = true;
+			}
+		})
+	
+	</script>
+	<input onchange="changeColor()"type = "color" id = "picker"/>
+	<script>
+		var canvas = document.querySelector("#myCanvas");
+		var ctx = canvas.getContext("2d");
+		var colorPicker = document.querySelector("#picker");
+
+		function changeColor(){
+			console.log("Change color to: " + colorPicker.value)
+			color = colorPicker.value
+		}
+	
+	
+	</script>
+	
+</body>
+</html>
